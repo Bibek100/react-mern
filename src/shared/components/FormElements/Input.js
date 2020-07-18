@@ -14,14 +14,24 @@ const inputReducer = (state, action) => {
 };
 
 const Input = (props) => {
-  useReducer(inputReducer);
+  const [inputState, dispatch] = useReducer(inputReducer, {
+    value: "",
+    isValid: false,
+  });
 
-  const changeHandler = (event) => {};
+  const changeHandler = (event) => {
+    dispatch({ type: "CHANGE", val: event.target.value });
+  };
   const element =
     props.element === "input" ? (
-      <input id={props.id} type={props.type} placeholder={props.placeholder} />
+      <input
+        id={props.id}
+        type={props.type}
+        placeholder={props.placeholder}
+        value={inputState.value}
+      />
     ) : (
-      <textarea id={props.id} rows={props.rows || 3} />
+      <textarea id={props.id} rows={props.rows || 3} value={inputState.value} />
     );
 
   return (
