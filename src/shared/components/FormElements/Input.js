@@ -28,6 +28,7 @@ const Input = (props) => {
         id={props.id}
         type={props.type}
         placeholder={props.placeholder}
+        onChange={changeHandler}
         value={inputState.value}
       />
     ) : (
@@ -35,9 +36,14 @@ const Input = (props) => {
     );
 
   return (
-    <div className={`form-control`}>
+    <div
+      className={`form-control ${
+        !inputState.isValid && "form-control--invalid"
+      }`}
+    >
       <label htmlFor={props.id}>{props.label}</label>
       {element}
+      {!inputState.isValid && <p>{props.errorText}</p>}
     </div>
   );
 };
