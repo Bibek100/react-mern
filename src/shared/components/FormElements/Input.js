@@ -60,6 +60,7 @@ const Input = (props) => {
         rows={props.rows || 3}
         value={inputState.value}
         onBlur={touchHandler}
+        value={inputState.value}
       />
     );
 

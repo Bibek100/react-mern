@@ -8,10 +8,10 @@ import {
 import "./NewPlace.css";
 
 const formReducer = (state, action) => {
-  switch ((action, type)) {
+  switch (action.type) {
     case "INPUT_CHANGE":
       let formIsValid = true;
-      for (const input in state.inputs) {
+      for (const inputId in state.inputs) {
         if (inputId === action.inputId) {
           formIsValid = formIsValid && action.isValid;
         } else {
@@ -44,17 +44,14 @@ const NewPlace = () => {
     },
     isValid: false,
   });
-  const inputHandler = useCallback(
-    (id, value, isValid) => {
-      dispatch({
-        type: "INPUT_CHANGE",
-        value: value,
-        isValid: isValid,
-        inputId: id,
-      });
-    },
-    [dispatch]
-  );
+  const inputHandler = useCallback((id, value, isValid) => {
+    dispatch({
+      type: "INPUT_CHANGE",
+      value: value,
+      isValid: isValid,
+      inputId: id,
+    });
+  }, []);
 
   return (
     <form className="place-form">
@@ -70,7 +67,8 @@ const NewPlace = () => {
       <Input
         id="description"
         element="textarea"
-        label="title"
+        type="text"
+        label="Description"
         validators={[VALIDATOR_MINLENGTH(5)]}
         errorText="please ener valid descrption"
         onInput={inputHandler}
