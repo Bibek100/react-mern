@@ -57,7 +57,23 @@ const UpdatePlace = () => {
         type="text"
         label="title"
         validators={[VALIDATOR_REQUIRE()]}
+        onInput={() => {}}
+        value={identifiedPlace.title}
+        valid={true}
       />
+      <Input
+        id="description"
+        element="textarea"
+        errorText="Please enter a valid description"
+        label="description"
+        validators={[VALIDATOR_MINLENGTH(5)]}
+        onInput={() => {}}
+        value={identifiedPlace.description}
+        valid={true}
+      />
+      <Button type="submit" disabled={true}>
+        UPDATE PLACE
+      </Button>
     </form>
   );
 };
