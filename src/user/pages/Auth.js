@@ -14,8 +14,10 @@ import {
 import { useForm } from "../../shared/hooks/form-hook";
 
 import "./Auth.css";
+import { AuthContext } from "../../shared/context/auth-context";
 
 const Auth = () => {
+  const auth = useContext(AuthContext);
   const [isLoginMode, setIsLoginMode] = useState(true);
   const [formState, inputHandler, setFormData] = useForm(
     {
@@ -33,6 +35,7 @@ const Auth = () => {
   const authSubmitHandler = (event) => {
     event.preventDefault();
     console.log(formState.inputs);
+    auth.login();
   };
   const switchModeHandler = () => {
     if (!isLoginMode) {
