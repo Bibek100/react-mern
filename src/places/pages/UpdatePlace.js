@@ -88,9 +88,10 @@ const UpdatePlace = () => {
   if (!identifiedPlace) {
     return (
       <div className="center">
-        <Card>
-          <h2>Could not find place</h2>
-        </Card>
+          <Card>
+                 <h2>Could not find place</h2>
+          </Card>
+     
       </div>
     );
   }
