@@ -19,6 +19,8 @@ import { AuthContext } from "../../shared/context/auth-context";
 const Auth = () => {
   const auth = useContext(AuthContext);
   const [isLoginMode, setIsLoginMode] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(true);
   const [formState, inputHandler, setFormData] = useForm(
     {
       email: {
@@ -38,6 +40,8 @@ const Auth = () => {
     if (isLoginMode) {
     } else {
       try {
+        setIsLoading(true);
+
         const response = await fetch("http://localhost:5000/api/users/signup", {
           method: "POST",
           headers: {
@@ -51,12 +55,14 @@ const Auth = () => {
         });
         const responseData = await response.json();
         console.log(responseData);
+        setIsLoading(false);
+        auth.login();
       } catch (err) {
-        console.group(err);
+        console.log(err);
+        setIsLoading(false);
+        setError(err.message || "something went wrong ,please try again");
       }
     }
-
-    auth.login();
   };
   const switchModeHandler = () => {
     if (!isLoginMode) {
@@ -84,6 +90,7 @@ const Auth = () => {
 
   return (
     <Card className="authentication">
+      {isLoading && <LoadingSpinner asOverlay />}
       <h2>Login Required</h2>
       <hr />
       <form onSubmit={authSubmitHandler}>
